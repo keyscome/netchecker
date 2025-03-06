@@ -112,5 +112,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.event.inputs.release_version }}
-          # 使用 **/*.zip 能匹配所有子目录下的 zip 文件
-          files: "artifacts/**/*.zip"
+          files: |
+            artifacts/**/*.zip
+            artifacts/**/*.tar.gz
