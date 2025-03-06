@@ -6,11 +6,11 @@ on:
       release_version:
         description: 'Release version (e.g. v1.0.0)'
         required: true
-        default: 'v1.0.0'
+        default: 'v0.0.2-alpha'
       draft:
         description: 'Is this a draft release? (true/false)'
         required: true
-        default: 'false'
+        default: 'true'
       prerelease:
         description: 'Is this a pre-release? (true/false)'
         required: true
@@ -47,8 +47,13 @@ jobs:
           GOARCH: ${{ matrix.arch }}
           CGO_ENABLED: 0
         run: |
-          GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o netchecker
-          chmod +x netchecker
+          if [ "${{ matrix.os }}" = "windows" ]; then
+            GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o netchecker.exe
+            chmod +x netchecker.exe
+          else
+            GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o netchecker
+            chmod +x netchecker
+          fi
         shell: bash
 
       - name: Package binary and config files
