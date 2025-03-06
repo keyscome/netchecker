@@ -1,0 +1,81 @@
+name: Build and Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [linux, windows, darwin]
+        arch: [amd64]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.16'
+
+      - name: Build binary for ${{ matrix.os }} ${{ matrix.arch }}
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
+          CGO_ENABLED: 0
+        run: |
+          # 调用 build/ 下对应平台的构建脚本，例如 build/build-linux.sh、build/build-windows.sh、build/build-darwin.sh
+          # 这里假设每个脚本会生成二进制文件 netchecker 或 netchecker.exe
+          bash build/build-${{ matrix.os }}-{{ matrix.arch }}.sh
+        shell: bash
+
+      - name: Package binary and config files
+        run: |
+          mkdir -p package
+          # 复制二进制文件（注意 Windows 的扩展名）
+          if [ "${{ matrix.os }}" = "windows" ]; then
+            cp netchecker.exe package/
+          else
+            cp netchecker package/
+          fi
+          # 复制其他需要的文件
+          cp config.yml package/
+          cp report.tpl package/
+          # 创建 zip 包，名称中包含平台信息
+          zip -r netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip package
+        shell: bash
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: netchecker-${{ matrix.os }}-${{ matrix.arch }}
+          path: netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
