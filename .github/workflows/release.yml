@@ -49,30 +49,38 @@ jobs:
         run: |
           if [ "${{ matrix.os }}" = "windows" ]; then
             GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o netchecker.exe
-            chmod +x netchecker.exe
           else
             GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o netchecker
-            chmod +x netchecker
           fi
 
       - name: Package binary and config files
         run: |
-          mkdir -p package
-          # 若是 Windows 平台，复制 netchecker.exe；否则复制 netchecker
+          ls -latr
+          mkdir -p netchecker          
+          cp config.yml netchecker/
+          cp report.tpl netchecker/
           if [ "${{ matrix.os }}" = "windows" ]; then
-            cp netchecker.exe package/
+            cp netchecker.exe netchecker/
+            zip -r netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip netchecker
           else
-            cp netchecker package/
+            cp netchecker netchecker/
+            tar zcf netchecker-${{ matrix.os }}-${{ matrix.arch }}.tar.gz netchecker
           fi
-          cp config.yml package/
-          cp report.tpl package/
-          zip -r netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip package
 
+      - name: Set artifact file name
+        id: set_artifact_name
+        run: |
+          if [ "${{ matrix.os }}" = "windows" ]; then
+            echo "ARTIFACT_NAME=netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip" >> $GITHUB_OUTPUT
+          else
+            echo "ARTIFACT_NAME=netchecker-${{ matrix.os }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_OUTPUT
+          fi
+    
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: netchecker-${{ matrix.os }}-${{ matrix.arch }}
-          path: netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip
+          path: ${{ steps.set_artifact_name.outputs.ARTIFACT_NAME }}
 
   release:
     needs: build
