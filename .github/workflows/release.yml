@@ -28,7 +28,7 @@ jobs:
         run: |
           # 调用 build/ 下对应平台的构建脚本，例如 build/build-linux.sh、build/build-windows.sh、build/build-darwin.sh
           # 这里假设每个脚本会生成二进制文件 netchecker 或 netchecker.exe
-          bash build/build-${{ matrix.os }}-{{ matrix.arch }}.sh
+          bash build/build-${{ matrix.os }}-${{ matrix.arch }}.sh
         shell: bash
 
       - name: Package binary and config files
