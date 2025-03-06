@@ -54,12 +54,11 @@ jobs:
             GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o netchecker
             chmod +x netchecker
           fi
-        shell: bash
 
       - name: Package binary and config files
         run: |
           mkdir -p package
-          # 若是 Windows 平台，可考虑复制 netchecker.exe，否则复制 netchecker
+          # 若是 Windows 平台，复制 netchecker.exe；否则复制 netchecker
           if [ "${{ matrix.os }}" = "windows" ]; then
             cp netchecker.exe package/
           else
@@ -68,7 +67,6 @@ jobs:
           cp config.yml package/
           cp report.tpl package/
           zip -r netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip package
-        shell: bash
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -101,8 +99,9 @@ jobs:
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.event.inputs.release_version }}
-          files: artifacts/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.release_version }}
+          # 使用 **/*.zip 能匹配所有子目录下的 zip 文件
+          files: 'artifacts/**/*.zip'
