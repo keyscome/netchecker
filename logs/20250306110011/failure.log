@@ -1,0 +1,20 @@
+FAILURE: 2025/03/06 11:00:11 [redis] 连接 10.0.1.38:6379 失败: dial tcp 10.0.1.38:6379: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [redis] 连接 10.0.1.38:6380 失败: dial tcp 10.0.1.38:6380: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [redis] 连接 10.0.1.39:6379 失败: dial tcp 10.0.1.39:6379: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [redis] 连接 10.0.1.39:6380 失败: dial tcp 10.0.1.39:6380: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [redis] 连接 10.0.1.40:6379 失败: dial tcp 10.0.1.40:6379: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [redis] 连接 10.0.1.40:6380 失败: dial tcp 10.0.1.40:6380: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [elasticsearch] 连接 10.0.1.24:9300 失败: dial tcp 10.0.1.24:9300: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [elasticsearch] 连接 10.0.1.25:9300 失败: dial tcp 10.0.1.25:9300: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [elasticsearch] 连接 10.0.1.26:9300 失败: dial tcp 10.0.1.26:9300: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [kibana] 连接 10.0.1.26:5601 失败: dial tcp 10.0.1.26:5601: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [minio] 连接 10.0.1.35:9000 失败: dial tcp 10.0.1.35:9000: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [zookeeper] 连接 10.0.1.27:3000 失败: dial tcp 10.0.1.27:3000: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [zookeeper] 连接 10.0.1.28:3000 失败: dial tcp 10.0.1.28:3000: connect: no route to host
+FAILURE: 2025/03/06 11:00:12 [zookeeper] 连接 10.0.1.29:3000 失败: dial tcp 10.0.1.29:3000: connect: no route to host
+FAILURE: 2025/03/06 11:00:15 [web] 连接 10.0.31.131:30310 失败: dial tcp 10.0.31.131:30310: i/o timeout
+FAILURE: 2025/03/06 11:00:18 [nacos] 连接 10.0.31.131:30848 失败: dial tcp 10.0.31.131:30848: i/o timeout
+FAILURE: 2025/03/06 11:00:18 [kafka] 连接 10.0.1.30:9092 失败: dial tcp 10.0.1.30:9092: connect: no route to host
+FAILURE: 2025/03/06 11:00:18 [kafka] 连接 10.0.1.31:9092 失败: dial tcp 10.0.1.31:9092: connect: no route to host
+FAILURE: 2025/03/06 11:00:18 [kafka] 连接 10.0.1.32:9092 失败: dial tcp 10.0.1.32:9092: connect: no route to host
+FAILURE: 2025/03/06 11:00:18 [zk-ui] 连接 10.0.1.27:9090 失败: dial tcp 10.0.1.27:9090: connect: no route to host

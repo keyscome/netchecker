@@ -1,0 +1,87 @@
+REPORT: 2025/03/06 10:57:11 Network Connection Report - 2025-03-06 10:57:11
+
+
+Service: elasticsearch
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.1.24:9300
+    - 10.0.1.25:9300
+    - 10.0.1.26:9300
+
+
+Service: kafka
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.1.30:9092
+    - 10.0.1.31:9092
+    - 10.0.1.32:9092
+
+
+Service: kibana
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.1.26:5601
+
+
+Service: minio
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.1.35:9000
+
+
+Service: nacos
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.31.131:30848
+
+
+Service: redis
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.1.38:6379
+    - 10.0.1.38:6380
+    - 10.0.1.39:6379
+    - 10.0.1.39:6380
+    - 10.0.1.40:6379
+    - 10.0.1.40:6380
+
+
+Service: web
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.31.131:30310
+
+
+Service: zk-ui
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.1.27:9090
+
+
+Service: zookeeper
+  Success:
+    (无成功连接)
+
+  Failures:
+    - 10.0.1.27:3000
+    - 10.0.1.28:3000
+    - 10.0.1.29:3000
+
+
+
