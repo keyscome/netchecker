@@ -63,9 +63,11 @@ jobs:
           if [ "${{ matrix.os }}" = "windows" ]; then
             cp tmp/netchecker.exe netchecker/bin
             zip -r netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip netchecker
+            ls -latr netchecker*
           else
             cp tmp/netchecker netchecker/bin
             tar zcf netchecker-${{ matrix.os }}-${{ matrix.arch }}.tar.gz netchecker
+            ls -latr netchecker*
           fi
 
       - name: Set artifact file name
@@ -113,5 +115,6 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.release_version }}
           files: |
-            artifacts/**/*.zip
-            artifacts/**/*.tar.gz
+            artifacts/*
+            # artifacts/**/*.zip
+            # artifacts/**/*.tar.gz
