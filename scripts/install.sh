@@ -1,13 +1,12 @@
 curl -O .zip
-unzip netchecker.zip -d /usr/local/
-grep -q "NETCHECKER_HOME" ~/.bashrc || append_env
+unzip pulse.zip -d /usr/local/
+grep -q "PULSE_HOME" ~/.bashrc || append_env
 
-function append_env()
-{
-  cat <<EOF >> ~/.bashrc
-export NETCHECKER_HOME=/usr/local/netchecker
-export PATH=$PATH:$NETCHECKER_HOME/bin
-export NETCHECKER_CONFIG_FILE=$NETCHECKER_HOME/config.yaml
-export NETCHECKER_REPORT_FILE=$NETCHECKER_HOME/report.tpl
+function append_env() {
+  cat <<EOF >>~/.bashrc
+export PULSE_HOME=/usr/local/pulse
+export PATH=$PATH:$PULSE_HOME/bin
+export PULSE_CONFIG_FILE=$PULSE_HOME/config.yaml
+export PULSE_REPORT_FILE=$PULSE_HOME/report.tpl
 EOF
 }

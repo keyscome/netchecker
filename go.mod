@@ -1,4 +1,4 @@
-module github.com/keyscome/netchecker
+module github.com/keyscome/pulse
 
 go 1.22
 

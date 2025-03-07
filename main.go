@@ -8,9 +8,9 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/keyscome/netchecker/checker"
-	"github.com/keyscome/netchecker/config"
-	"github.com/keyscome/netchecker/logger"
+	"github.com/keyscome/pulse/checker"
+	"github.com/keyscome/pulse/config"
+	"github.com/keyscome/pulse/logger"
 )
 
 // ReportData 用于模板渲染，记录每个服务检测的成功和失败结果

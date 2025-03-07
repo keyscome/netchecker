@@ -49,40 +49,40 @@ jobs:
         run: |
           mkdir -p tmp
           if [ "${{ matrix.os }}" = "windows" ]; then
-            GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o tmp/netchecker.exe
+            GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o tmp/pulse.exe
           else
-            GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o tmp/netchecker
+            GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} CGO_ENABLED=0 go build -o tmp/pulse
           fi
 
       - name: Package binary and config files
         run: |
           ls -latr
-          mkdir -p netchecker/bin
-          cp config.yml netchecker/
-          cp report.tpl netchecker/
+          mkdir -p pulse/bin
+          cp config.yml pulse/
+          cp report.tpl pulse/
           if [ "${{ matrix.os }}" = "windows" ]; then
-            cp tmp/netchecker.exe netchecker/bin
-            zip -r netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip netchecker
-            ls -latr netchecker*
+            cp tmp/pulse.exe pulse/bin
+            zip -r pulse-${{ matrix.os }}-${{ matrix.arch }}.zip pulse
+            ls -latr pulse*
           else
-            cp tmp/netchecker netchecker/bin
-            tar zcf netchecker-${{ matrix.os }}-${{ matrix.arch }}.tar.gz netchecker
-            ls -latr netchecker*
+            cp tmp/pulse pulse/bin
+            tar zcf pulse-${{ matrix.os }}-${{ matrix.arch }}.tar.gz pulse
+            ls -latr pulse*
           fi
 
       - name: Set artifact file name
         id: set_artifact_name
         run: |
           if [ "${{ matrix.os }}" = "windows" ]; then
-            echo "ARTIFACT_NAME=netchecker-${{ matrix.os }}-${{ matrix.arch }}.zip" >> $GITHUB_OUTPUT
+            echo "ARTIFACT_NAME=pulse-${{ matrix.os }}-${{ matrix.arch }}.zip" >> $GITHUB_OUTPUT
           else
-            echo "ARTIFACT_NAME=netchecker-${{ matrix.os }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_OUTPUT
+            echo "ARTIFACT_NAME=pulse-${{ matrix.os }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_OUTPUT
           fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: netchecker-${{ matrix.os }}-${{ matrix.arch }}
+          name: pulse-${{ matrix.os }}-${{ matrix.arch }}
           path: ${{ steps.set_artifact_name.outputs.ARTIFACT_NAME }}
 
   release:

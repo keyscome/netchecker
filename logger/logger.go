@@ -10,9 +10,10 @@ import (
 )
 
 // NewLoggers 创建三个 Logger：
-//  - successLogger：成功连接日志，输出到 stdout 和文件 logs/$timestamp/success.log
-//  - failureLogger：失败连接日志，输出到 stderr 和文件 logs/$timestamp/failure.log
-//  - reportLogger：检测报告日志，输出到 stdout 和文件 logs/$timestamp/report.log
+//   - successLogger：成功连接日志，输出到 stdout 和文件 logs/$timestamp/success.log
+//   - failureLogger：失败连接日志，输出到 stderr 和文件 logs/$timestamp/failure.log
+//   - reportLogger：检测报告日志，输出到 stdout 和文件 logs/$timestamp/report.log
+//
 // 同时返回 cleanup 函数用于关闭文件句柄
 func NewLoggers() (successLogger, failureLogger, reportLogger *log.Logger, cleanup func(), err error) {
 	// 使用时间戳创建日志目录，如 logs/20250305164541
@@ -25,7 +26,7 @@ func NewLoggers() (successLogger, failureLogger, reportLogger *log.Logger, clean
 
 	successFilename := fmt.Sprintf("%s/success.log", logsDir)
 	failureFilename := fmt.Sprintf("%s/failure.log", logsDir)
-	reportFilename  := fmt.Sprintf("%s/report.log", logsDir)
+	reportFilename := fmt.Sprintf("%s/report.log", logsDir)
 
 	successFile, err := os.Create(successFilename)
 	if err != nil {
@@ -54,7 +55,7 @@ func NewLoggers() (successLogger, failureLogger, reportLogger *log.Logger, clean
 
 	successLogger = log.New(successWriter, "SUCCESS: ", log.LstdFlags)
 	failureLogger = log.New(failureWriter, "FAILURE: ", log.LstdFlags)
-	reportLogger  = log.New(reportWriter, "REPORT: ", log.LstdFlags)
+	reportLogger = log.New(reportWriter, "REPORT: ", log.LstdFlags)
 
 	cleanup = func() {
 		successFile.Close()
